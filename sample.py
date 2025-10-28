@@ -32,27 +32,21 @@ def get_image_path(root, root_rm):
 
 
 if __name__ == '__main__':
-    i = 3
-    root = '/home/share/annlab_2dmat_2024/coco/graphene/'
-    root_rm = ['/home/share/annlab_2dmat_2024/batchs/graphene/', ]
+    from dataset_split import split
+
+    i = 4
+    root = '/home/share/annlab_2dmat_2024/coco_old/MoS2/'  # all data
+    root_rm = ['/home/share/annlab_2dmat_2024/batchs/MoS2/', ]  # annotation data
     image_path = get_image_path(root, root_rm)
     image_path = [str(p) for p in image_path]
     print(len(image_path))
-    # last batch
-    save_filepath = f'./sample_image/sample_image_filepath{i}.py'
-    _cfg = Config.fromstring('', file_format='.py')
-    _cfg.merge_from_dict(dict(sample_image_filepath=image_path))
-    if not Path(save_filepath).parent.exists():
-        Path(save_filepath).parent.mkdir(parents=True)
-    _cfg.dump(save_filepath)
-    # last batch ned
 
     # cfg_merge = dict(model=dict(test_cfg=dict(mode='slide', crop_size=(3072 + 128, 3072 + 128,),
     #                                           stride=(2560 + 128, 2560 + 128,))))
-    num = 990
+    num = 503
     # num = 10
     # # image_path=image_path[:10]
-    find_root = f'/home/yansu/paper/batch/runsbatch/graphene_batch{i - 1}_FlashInternImage/work_dirs'
+    find_root = f'/home/yansu/paper/batch/runsbatch_MoS2/MoS2_batch{i - 1}_FlashInternImage/work_dirs'  # weight dir
     cfg_fp = str(list(Path(find_root).glob('*.py'))[0])
     weight_fp = str(list(Path(find_root).glob('best_mIoU_iter_*.pth'))[0])
 
@@ -62,6 +56,5 @@ if __name__ == '__main__':
     # als = ALSample(cfg_fp=cfg_fp, weight_fp=weight_fp, strategy=dict(type='MarginSampling'), cfg_merge=cfg_merge)
     als = ALSample(cfg_fp=cfg_fp, weight_fp=weight_fp, strategy=dict(type='MarginSampling'), )
     als.sample(image_path, num=num, save_filepath=f'./sample_image/sample_image_filepath{i}.py')
-    from dataset_split import split
 
     split(i)
