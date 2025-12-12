@@ -27,8 +27,8 @@ model = dict(
         dw_kernel_size=3,
         groups=[7, 14, 28, 56, ],
         init_cfg=dict(
-            checkpoint="/home/yansu/mmlabmat/segmantation/mmseg-extension-test/pretrained/flash_internimage/flash_intern_image_b_1k_224.pth",
-            # 'https://huggingface.co/OpenGVLab/DCNv4/resolve/main/flash_intern_image_b_1k_224.pth',
+            # download from 'https://huggingface.co/OpenGVLab/DCNv4/resolve/main/flash_intern_image_b_1k_224.pth',
+            checkpoint="/path/to/pretrained/flash_internimage/flash_intern_image_b_1k_224.pth",
             type='Pretrained'),
         layer_scale=1.0,
         mlp_ratio=4.0,
@@ -69,24 +69,12 @@ model = dict(
 
 )
 
-# By default, models are trained on 2 GPUs with 4 images per GPU
-# train_dataloader = dict(num_batch_per_epoch=5)
-# val_dataloader = dict(num_batch_per_epoch=5)
-# test_dataloader = val_dataloader
-
 visualizer = dict(
     vis_backends=[
-        dict(type='LocalVisBackend', save_dir='./runsbatch/graphene_batch1_FlashInternImage_b/local'),
+        dict(type='LocalVisBackend', save_dir='./runs/local'),
         # dict(type='TensorboardVisBackend', save_dir='runs/tb'),
-        dict(type='MLflowVisBackend', save_dir='./runsbatch/graphene_batch1_FlashInternImage_b/mlruns',
-             exp_name='batch1',
+        dict(type='MLflowVisBackend', save_dir='./runs/mlruns',
+             exp_name='exp',
              run_name='FlashInternImage_b',
              ),
     ])
-# visualizer = dict(
-#     vis_backends=[
-#         dict(type='LocalVisBackend', save_dir='tmp/local'),
-#         dict(type='TensorboardVisBackend', save_dir='tmp/tb'),
-#         dict(type='MLflowVisBackend', save_dir='tmp/mlruns',
-#              exp_name='upernet_internimage_b_512_80k_b2d2_2dmat.py', ),
-#     ])

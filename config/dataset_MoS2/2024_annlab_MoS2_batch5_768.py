@@ -44,7 +44,7 @@ tta_pipeline = [
             ], [dict(type='LoadAnnotations')], [dict(type='PackSegInputs')]
         ])
 ]
-data_root = '/home/share/annlab_2dmat_2024/coco/MoS2/'
+data_root = '/path/to/your/dataset/MoS2/'
 train_dataset = dict(type=dataset_type, data_root=data_root, pipeline=train_pipeline,
                      data_prefix=dict(img_path='train2024', seg_map_path='annotations_semseg/train2024'),
                      img_suffix='.jpg', seg_map_suffix='.png', reduce_zero_label=None,
@@ -70,18 +70,6 @@ val_dataloader = dict(
 )
 test_dataloader = val_dataloader
 
-# val_evaluator = [
-#     dict(type='ext-RegionIoU', thresholds=[0.5, 0.75], skip_class_num=[0], area_filter=100, processes=2),
-#     dict(type='ext-RegionIoU', thresholds=[0.5, 0.75], skip_class_num=[0], area_filter=1000,
-#          prefix='103', processes=2),
-#     dict(type='ext-RegionIoU', thresholds=[0.5, 0.75], skip_class_num=[0], area_filter=10000,
-#          prefix='104', processes=2),
-#     dict(type='ext-RegionIoU', thresholds=[0.5, 0.75], skip_class_num=[0], area_filter=100000,
-#          prefix='105', processes=2),
-#     # dict(type='ext-IoUDICMetric'),
-#     # dict(type='ext-ConfusionMatrixMetric'),
-#     dict(type='IoUMetric', iou_metrics=['mIoU', 'mDice', 'mFscore']),
-# ]
 val_evaluator = [
     dict(type='ext-RegionIoU', thresholds=[0.5, 0.75], skip_class_num=[0], area_filter=100),
     # dict(type='ext-IoUDICMetric'),
