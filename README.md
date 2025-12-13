@@ -27,11 +27,19 @@ The directory structure after decompression is as follows:
 └── val2024/              # validation images
 ```
 
+The PNG files in `annotations_semseg` use a semantic segmentation format where:
+
+- Pixel value **0** represents the **background**.
+- Pixel value **1** represents the **target material region**.
+
+⚠️ **Note:** If you open these images directly with a standard image viewer, they will appear almost entirely black, since both 0 and 1 are very close to black on a 0–255 grayscale (where white is 255).
+
 
 ## 2. Installation
 
-**Step 1.** install mmseg: Please refer to [get_started.md](docs/en/get_started.md#installation) for installation and [dataset_prepare.md](docs/en/user_guides/2_dataset_prepare.md#prepare-datasets) for dataset preparation.
+**Step 1.** install mmseg: Please refer to [get_started.md](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/en/get_started.md#installation) for installation and [dataset_prepare.md](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/en/advanced_guides/datasets.md) for dataset preparation.
 
+**Strongly recommend:** [Read the detailed documentation](https://github.com/open-mmlab/mmsegmentation?tab=readme-ov-file#tutorial), especially the **Tutorial->MMSegmentation Tutorials->MMSeg Detail Tutorial** section.
 
 **Step 2.** Install `mmseg-extension` and `mmseg-extension-lib`
 
@@ -58,6 +66,9 @@ python setup.py install
 
 
 ## Usage
+
+⚠️**Strongly recommend:** [Read the detailed documentation](https://github.com/open-mmlab/mmsegmentation?tab=readme-ov-file#tutorial), especially the **Tutorial->MMSegmentation Tutorials->MMSeg Detail Tutorial** section.
+
 ### Train the Model
 
 Model training is performed by executing the train.sh script. This shell script typically encapsulates the full training pipeline, including environment setup, hyperparameter configuration, and invocation of the actual training program. Common contents of train.sh may include:
